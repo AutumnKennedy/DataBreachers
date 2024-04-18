@@ -1,1 +1,3 @@
-# DataBreachers
+# DataBreachers Messaging System
+
+A message exchanging system. A person may register an account with the service. The system maintains topics which are message threads. A user can subscribe to a topic or start a new topic (in which case the person is automatically subscribed to the new topic). A user can post a message in a subscribed topic. Upon login, a user should see the 2 most recent messages posted in each of the topics in which the user has subscribed. In that entry page, there should also be a link to show topics available for subscription and there should be an "unsubscribe" button next to each of the subscribed topics. The architecture of the code must implement the MVC and Observer patterns. 
