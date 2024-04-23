@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Default Route:
 app.get("/", (req, res) => {
-  fs.readFile("/workspaces/DataBreachers/view/index.html", (err, data) => {
+  fs.readFile("view/index.html", (err, data) => {
     if (err) {
       console.error("Error reading file:", err);
       res.status(500).send("Error reading index.html");
