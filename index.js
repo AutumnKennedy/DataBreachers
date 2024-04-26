@@ -1,12 +1,14 @@
 require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const fs = require('fs');
-const uri = process.env.MONGODB_URI;
-
 const express = require("express");
-const { Console } = require('console');
 const app = express();
 const port = 3000;
+
+const uri = process.env.MONGODB_URI;
+
+//Routers
+const loginRouter = require('./routes/login');
 
 app.listen(port);
 console.log('Server started at http://localhost:' + port);
@@ -14,7 +16,8 @@ console.log('Server started at http://localhost:' + port);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Routes go here
+//Using Routers
+app.use('/', loginRouter);
 
 //Default Route:
 app.get("/", (req, res) => {
@@ -28,6 +31,7 @@ app.get("/", (req, res) => {
     res.send(data);
   })
 });
+
 app.get('/showLogInForm', function(req,res){
   fs.readFile("view/logInForm.html", (err, data) => {
     console.log("show log in form");
@@ -40,6 +44,7 @@ app.get('/showLogInForm', function(req,res){
     res.send(data);
 });
 });
+
 app.get('/logInRender' , function(req, res){
   const client = new MongoClient(uri);
   const{username, password} = req.query;
