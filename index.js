@@ -32,6 +32,51 @@ app.get("/", (req, res) => {
   })
 });
 
+
+//Registering
+app.get('/showRegisterForm', function(req,res){
+  fs.readFile("view/registerForm.html", (err, data) => {
+    if (err) {
+        console.error("Error reading file:", err);
+        res.status(500).send("Error reading registerForm.html");
+        return;
+    }
+    res.setHeader('Content-Type', 'text/html');
+    res.send(data);
+  });
+});
+
+app.post('/api/mongo/register', function(req, res) {
+  const { username, password } = req.body;
+  
+  const client = new MongoClient(uri);
+
+  async function run() {
+    try {
+      const database = client.db('DataBreachers');
+      const users = database.collection('Authorization');
+
+      const query = { username, password };
+
+      const userExists = await users.findOne({username});
+
+      if (userExists) {
+        res.send('Username is already taken.');
+        return;
+      } else{
+          await users.insertOne({ username, password });
+          res.send('User creation was successful!');
+      }
+    } finally {
+      await client.close();
+    }
+  }
+
+  run().catch(console.dir);
+});
+
+
+// Logging in
 app.get('/showLogInForm', function(req,res){
   fs.readFile("view/logInForm.html", (err, data) => {
     console.log("show log in form");
@@ -42,7 +87,7 @@ app.get('/showLogInForm', function(req,res){
     }
     res.setHeader('Content-Type', 'text/html');
     res.send(data);
-});
+  });
 });
 
 app.get('/logInRender' , function(req, res){
