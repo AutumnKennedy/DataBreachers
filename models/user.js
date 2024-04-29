@@ -7,4 +7,6 @@ const userSchema = new mongoose.Schema({
     topicsSubscribed: [{ type: Schema.Types.ObjectId, ref: 'Topic' }]
 });
 
-module.exports = mongoose.model('User, userSchema');
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
