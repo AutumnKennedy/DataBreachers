@@ -7,6 +7,6 @@ const router = express.Router();
 router.get('/showRegisterForm', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/registerForm.html'));
 });
-router.get('/api/register', registerUser);
+router.post('/api/register', registerUser);
 
 module.exports = router;
