@@ -9,13 +9,10 @@ const uri = process.env.MONGODB_URI;
 
 //Login User
 const loginUser = async (req, res) => {
-    //const client = new MongoClient(uri);
+
     try {
-        //await client.connect();
 
         const { username, password } = req.query;
-        //const database = client.db('DataBreachers');
-        //const collection = database.collection('Authorization');
 
         const query = { username: username, password: password };
         console.log("Queried username and Password: ", username, password);

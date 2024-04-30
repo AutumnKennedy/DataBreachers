@@ -31,6 +31,7 @@ app.use(cookieParser());
 //Routers
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
+const topicRouter = require('./routes/chatRoom');
 
 
 //Routes go here:
@@ -46,4 +47,6 @@ app.use('/', loginRoutes);
 //Register
 app.use('/', registerRoutes);
 
+//Topics
+app.use(topicRouter);
 
