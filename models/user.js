@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-const Topic = require('./topic');
+const Schema = mongoose.Schema; 
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     topicsSubscribed: [{ type: Schema.Types.ObjectId, ref: 'Topic' }]
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
