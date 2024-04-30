@@ -27,7 +27,9 @@ const loginUser = async (req, res) => {
 
           if (user!= null){
             res.send('Found this user: ' + JSON.stringify(user));
+            
           }
+          
           if (user == null){
             res.send('User not found');
           }
