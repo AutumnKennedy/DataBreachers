@@ -1,36 +1,42 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- <meta charset="UTF-8"> -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<title>Chat with me!</title>
+<style>
+    #chatForm {
+        margin-top: 20px;
+    }
+    .chatMessage {
+        margin-bottom: 15px;
+    }
+</style>
+
+</head>
+<h3>
+    Send me coffee!
+</h3>
 <body>
-    <h1>
-    Chat Room:   
-    </h1>
-    <div id="chatroom"></div>
-    
     <form id="chatForm">
-        <input type= "text" id="content" placeholder="Create a chat!">
-        <button type="submit"> Send </button>
+        <input type="text" id="content" placeholder="Create a chat!">
+        <button type="submit">Send</button>
     </form>
 
-    <h3>
-    Topic:
-    </h3>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <div id="chatContent"></div>
 
     <script>
-        const socket = io();
-        function displayMessages(messages){
-            const messages = document.getElementById();
-        }
+        document.getElementById("chatForm").addEventListener("submit", function(event) {
+            event.preventDefault(); //makes sure it doesnt submit with nothing in it??
+            var content = document.getElementById("content").value;
+            var chatMessage = document.createElement("p"); // p for paragraph for some reson
+            chatMessage.textContent = "You said: " + content;
+            chatMessage.classList.add("chatMessage"); //this is to make the chats not dissappear, 
+            //seems to be an array. ChatMessage.
+            var chatContent = document.getElementById("chatContent");
+            chatContent.appendChild(chatMessage);
+            document.getElementById("content").value = "";
+        });
     </script>
-    <table>
-            <tr>
-                <td>
-                From:
-            </td>
-                <td>
-                Message:
-                </td>        
-            </tr>
-        
-</table>
-    
 </body>
+</html>
