@@ -1,12 +1,12 @@
 const express = require('express');
-const path = require('path');
-const { loginUser} = require('../controllers/authController');
-//const extractTokenFromCookie = require('../middlewares/extractToken');
 const router = express.Router();
+const { createTopic } = require('../controllers/topicController');
 
-router.get('/chatRoom', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/chatRoom.ejs'));
+router.post('/createTopic', createTopic);
+
+router.get('/chatroom', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.sendFile("chatRoom.ejs", { root: "./views" });
 });
-     
 
 module.exports = router;
