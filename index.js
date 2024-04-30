@@ -59,7 +59,7 @@ app.use(cookieParser());
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const topicRouter = require('./routes/chatRoom');
-const databaseInstance = require('./singleton');
+// const databaseInstance = require('./singleton');
 
 
 //Routes go here:
