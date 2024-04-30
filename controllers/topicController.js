@@ -9,7 +9,7 @@ const createTopic = async (req, res) => {
         
         await topic.save();
 
-        res.status(201).send('Topic created successfully');
+        //res.status(201).send('Topic created successfully');
         res.redirect('/chatroom');
         console.log(topic);
     } catch (error) {
