@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 var cookieParser = require('cookie-parser');
 const app = express();
 app.set('view engine', 'ejs');
-const database = require('C:\\Users\\ynyda\\Documents\\DataBreachers\\Database.js')
+const database = require('./Database.js')
 database
 // class Database{
 // constructor(){
