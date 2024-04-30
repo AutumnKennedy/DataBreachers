@@ -31,5 +31,15 @@ app.use('/', loginRoutes);
 
 //Register
 app.use('/', registerRoutes);
-
+app.get('/show', function(req,res){
+  fs.readFile("views/chatRoom.ejs", (err, data) => {
+    if (err) {
+        console.error("Error reading file:", err);
+        res.status(500).send("Error reading");
+        return;
+    }
+    res.setHeader('Content-Type', 'text/html');
+    res.send(data);
+  });
+});
 
