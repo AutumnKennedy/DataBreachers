@@ -1,0 +1,31 @@
+class logInObserver{
+    constructor(){
+        this.isLoggedIn = false;
+        this.observer= [];
+    }
+    update(theUpdate){
+        console.log("Logged in status: " + theUpdate);
+    }
+    addObserver(observerForLogin){
+        this.observer.push(observerForLogin);
+    }
+    deleteObserver(observerToDelete){
+        this.observer = this.observer.filter(x => x != observerToDelete);
+    }
+    notify() {
+        if (this.observer) {
+            this.observer.forEach(observer => {
+                observer.update(this.isLoggedIn);
+            });
+        }
+    }
+    login(){
+        this.isLoggedIn = true;
+        this.update(this.isLoggedIn);
+    }
+    logout(){
+        this.isLoggedIn = false;
+        this.update(this.isLoggedIn);
+    }
+ 
+}   module.exports = logInObserver;
