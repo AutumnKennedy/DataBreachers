@@ -38,7 +38,6 @@ const loginUser = async (req, res) => {
         console.error("Error:", error);
         res.status(500).send('Internal server error');
     } finally {
-        // Close the MongoDB client connection
         await client.close();
     }
 };
