@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require('uuid');
+var cookieParser = require('cookie-parser');
 const app = express();
 const port = 3000;
 
@@ -12,6 +14,7 @@ console.log('Server started at http://localhost:' + port);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 //Routers

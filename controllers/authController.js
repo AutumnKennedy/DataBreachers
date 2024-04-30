@@ -1,46 +1,47 @@
 require('dotenv').config();
 const { MongoClient } = require("mongodb");
 //const User = require('../models/user');
+const { v4: uuidv4 } = require('uuid');
+
 
 const uri = process.env.MONGODB_URI;
 
 
 //Login User
 const loginUser = async (req, res) => {
-
     const client = new MongoClient(uri);
-    const{username, password} = req.query;
+    try {
+        await client.connect();
 
-    async function run(){
-        try {
-            const database = client.db('DataBreachers');
-            const collection = database.collection('Authorization');
+        const { username, password } = req.query;
+        const database = client.db('DataBreachers');
+        const collection = database.collection('Authorization');
 
-            const query = {username: username, password: password};
-            console.log("Queried username and Passoword" + username + password);
+        const query = { username: username, password: password };
+        console.log("Queried username and Password: ", username, password);
 
-            //const user = await User.findOne(query);
-            const user = await collection.findOne(query);
-            console.log("awaiting collection");
-            console.log(user);
-            console.log(password);
+        const user = await collection.findOne(query);
+        console.log("User:", user);
 
-          if (user!= null){
-            res.send('Found this user: ' + JSON.stringify(user));
-          }
-          if (user == null){
+        if (user != null) {
+            const authToken = uuidv4();
+            res.cookie('authToken', authToken, { 
+                maxAge: 60000, 
+                httpOnly: true
+            });
+            console.log("AuthToken:", authToken);
+            res.redirect('/dashboard');
+        } else {
             res.send('User not found');
-          }
-        } catch{
-          console.log("Cannot connect to DataBase");
         }
-        finally{
-          await client.close();
-        }
-        
-      }
-      run().catch(console.dir);
-}
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send('Internal server error');
+    } finally {
+        // Close the MongoDB client connection
+        await client.close();
+    }
+};
 
 //Register User
 const registerUser = async (req, res) => {
@@ -60,7 +61,7 @@ const registerUser = async (req, res) => {
             return;
         } else{
             await users.insertOne({ username, password });
-            res.send('User creation was successful!');
+            res.send('User creation was successful!' + `<a href="/showLogInForm"> Login.</a>`);
         }
         } finally {
         await client.close();
