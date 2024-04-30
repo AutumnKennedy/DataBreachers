@@ -2,18 +2,15 @@ require('dotenv').config();
 //const { MongoClient } = require("mongodb");
 const User = require('../models/user');
 const { v4: uuidv4 } = require('uuid');
-
+const logInObserver = require('../observers/logInObserver'); //may not work
 
 const uri = process.env.MONGODB_URI;
-
+const myObserver = new logInObserver();
 
 //Login User
 const loginUser = async (req, res) => {
-
     try {
-
         const { username, password } = req.query;
-
         const query = { username: username, password: password };
         console.log("Queried username and Password: ", username, password);
 
@@ -21,12 +18,16 @@ const loginUser = async (req, res) => {
         console.log("User:", user);
 
         if (user != null) {
+            myObserver.login();
+            
             const authToken = uuidv4();
             res.cookie('authToken', authToken, { 
                 maxAge: 60000, 
                 httpOnly: true
             });
             console.log("AuthToken:", authToken);
+            // myObserver.update("true");
+            myObserver.notify();
             res.redirect('/dashboard');
         } else {
             res.send('User not found');

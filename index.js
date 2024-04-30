@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const { v4: uuidv4 } = require('uuid');
 var cookieParser = require('cookie-parser');
 const app = express();
+app.set('view engine', 'ejs');
+
 const port = 3000;
 
 const uri = process.env.MONGODB_URI;
