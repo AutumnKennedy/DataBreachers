@@ -1,13 +1,27 @@
-
+<!DOCTYPE html>
 <body>
     <h1>
     Chat Room:   
     </h1>
+    <div id="chatroom"></div>
+    
+    <form id="chatForm">
+        <input type= "text" id="content" placeholder="Create a chat!">
+        <button type="submit"> Send </button>
+    </form>
+
     <h3>
     Topic:
     </h3>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <script>
+        const socket = io();
+        function displayMessages(messages){
+            const messages = document.getElementById();
+        }
+    </script>
     <table>
-    <% for(var i =0; i < messages.length; i++){%>
             <tr>
                 <td>
                 From:
@@ -16,7 +30,7 @@
                 Message:
                 </td>        
             </tr>
-    <% } %>    
+        
 </table>
     
 </body>
